@@ -1,0 +1,4 @@
+# This file protects specific codepaths from modification without approvals
+
+/products/*    @CyberKoz
+/test/*        @CyberKoz testers@va.gov
