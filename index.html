@@ -1,0 +1,142 @@
+---
+title: Task Tracking
+permalink: /
+
+layout: home
+hero:
+  link:
+    text: TODO list
+    href: '#'
+tagline: Simplicity
+intro: |
+  Sample Project demonstrating a Product
+
+graphics:
+  - image:
+      src: /assets/uswds/img/circle-124.png
+      alt: ''
+    title: The Department of Veterans Affairs
+    description: The VA
+  - image:
+      src: /assets/uswds/img/circle-124.png
+      alt: ''
+    title: Office of Information Technology
+    description: OI&T
+---
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"></link>
+
+<h2>DSVA TODO App</h2>
+{% raw %}
+<div class="app html body" id="app">
+  <form class="form" v-on:submit="addTodo">
+    <input class="input form__input" v-model="inputVal"/>
+    <button class="btn form__submit-btn" type="submit">Add</button>
+  </form>
+  <transition-group tag="ol" name="list" class="todo-list">
+    <li
+      class="todo-list__item"
+      v-bind:class="{ complete: todo.complete }"
+      v-bind:key="index"
+      v-for="(todo, index) in filteredTodos">
+      <button
+        class="todo-list__item-content"
+        v-on:click="toggleTodo(todo)">
+        {{ todo.text }}
+      </button>
+      <button
+        class="btn todo-list__item-remove"
+        v-on:click="deleteTodo(index)">
+        <i class="fa" v-bind:class="[todo.complete ? 'fa-check' : 'fa-times']"></i>
+      </button>
+    </li>
+  </transition-group>
+  <div class="filters">
+    <button
+      class="btn filters__btn filters__btn--all"
+      v-on:click="filterTodos('all')">
+      All
+    </button>
+    <button
+      class="btn filters__btn filters__btn--complete"
+      v-on:click="filterTodos('complete')">
+      Complete
+    </button>
+    <button
+      class="btn filters__btn filters__btn--incomplete"
+      v-on:click="filterTodos('incomplete')">
+      Incomplete
+    </button>
+  </div>
+
+<script>
+  var filters = {
+  all: function(todos) {
+    return todos;
+  },
+  complete: function(todos) {
+    return todos.filter(function(todo) {
+      return todo.complete;
+    });
+  },
+  incomplete: function(todos) {
+    return todos.filter(function(todo) {
+      return !todo.complete;
+    });
+  }
+}
+
+var STORAGE_KEY = 'vue-js-todo-P7oZi9sL'
+var todoStorage = {
+  fetch: function () {
+    var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    return todos;
+  },
+  save: function (todos) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+  }
+}
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    inputVal: '',
+    todos: todoStorage.fetch(),
+    visibility: 'all'
+  },
+  watch: {
+    todos: {
+      handler: function(todos) {
+        todoStorage.save(todos);
+      }
+    }
+  },
+  computed: {
+    filteredTodos: function () {
+      return filters[this.visibility](this.todos);
+    }
+  },
+  methods: {
+    addTodo: function(e) {
+      e.preventDefault();
+      if (this.inputVal) {
+        this.todos.push({
+          text: this.inputVal,
+          complete: false
+        });
+      }
+      this.inputVal = '';
+    },
+    toggleTodo: function(todo) {
+      todo.complete = !todo.complete;
+    },
+    filterTodos: function(filter) {
+      this.visibility = filter;
+    },
+    deleteTodo: function(index) {
+      this.todos.splice(index, 1);
+    }
+  }
+});
+</script>
+{% endraw %}

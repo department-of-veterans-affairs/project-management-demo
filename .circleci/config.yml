@@ -1,0 +1,19 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.4-node-browsers
+    steps:
+      - checkout
+      - run: bundle install
+      - run: npm install
+      - run:
+          name: Start Jekyll
+          command: |
+            jekyll serve
+          background: true
+      - run:
+          command: |
+            node .\node_modules\nightwatch\bin\runner.js
+      - store_test_results:
+          path: reports/

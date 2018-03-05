@@ -1,0 +1,19 @@
+{
+  "name": "project-management-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "globals.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "chromedriver": "^2.35.0",
+    "nightwatch": "^0.9.19"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

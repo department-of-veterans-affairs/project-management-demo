@@ -1,0 +1,12 @@
+title: Tasking Tracking
+email: Daniel.Kozlowski@va.gov
+description: >- # this means to ignore newlines until "baseurl:"
+  This is a simple TODO site that will showcase the Project Management capabilities of GitHub
+github_username:  CyberKoz
+
+# Build settings
+markdown: kramdown
+theme: uswds-jekyll
+
+styles:
+  - /assets/main.css
