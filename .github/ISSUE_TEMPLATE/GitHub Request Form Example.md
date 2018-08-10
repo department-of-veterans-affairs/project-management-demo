@@ -1,6 +1,6 @@
 ---
-name: 
-about: 
+name: GitHub Request Form
+about: Use this form to request access to GitHub
 
 ---
 
