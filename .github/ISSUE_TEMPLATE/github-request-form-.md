@@ -1,6 +1,6 @@
 ---
-name: 
-about: 
+name: 'Github Request Form '
+about: Use this form to request access for your team to VA's GitHub space.
 
 ---
 
